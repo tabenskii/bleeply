@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 SOURCE="$ROOT/.cache/ffmpeg-8.1.2"
 ARCHIVE="$ROOT/.cache/ffmpeg-8.1.2.tar.xz"
+mkdir -p "$ROOT/.cache"
 if [[ ! -f "$ARCHIVE" ]]; then
   curl --fail --location --output "$ARCHIVE.part" https://ffmpeg.org/releases/ffmpeg-8.1.2.tar.xz
   mv "$ARCHIVE.part" "$ARCHIVE"

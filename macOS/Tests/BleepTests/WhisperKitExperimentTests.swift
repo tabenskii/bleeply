@@ -55,7 +55,7 @@ final class WhisperKitExperimentTests: XCTestCase {
     func testRenderUnifiedSettingsForVisualReview() throws {
         let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
             .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
-        let output = root.appendingPathComponent(".cache/macos-previews/settings.png")
+        let output = root.appendingPathComponent("local-artifacts/macos-previews/settings.png")
         try FileManager.default.createDirectory(at: output.deletingLastPathComponent(), withIntermediateDirectories: true)
         let defaults = try preferences()
         defaults.set("mlx", forKey: "backend")

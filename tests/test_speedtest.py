@@ -1,6 +1,8 @@
 import importlib.util
+import argparse
 import json
 from pathlib import Path
+import shutil
 import subprocess
 import tempfile
 import unittest
@@ -12,6 +14,42 @@ spec.loader.exec_module(speedtest)
 
 
 class SpeedtestTests(unittest.TestCase):
+    def test_default_measurements_survive_cache_deletion(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            cache = root / '.cache'
+            cache.mkdir()
+            helper = cache / 'helper'
+            helper.touch()
+            results = root / 'local-artifacts/speedtest'
+            args = argparse.Namespace(audio=root / 'audio.flac', whisperkit_model=cache / 'model',
+                                      output=None, repeats=0, cooldown=0, timeout=1)
+
+            def failed_worker(request, directory, timeout):
+                speedtest.save(directory / 'request.json', request)
+                return dict(status='error', code='test_failure', wall_seconds=1)
+
+            with patch.object(speedtest.platform, 'system', return_value='Darwin'), \
+                 patch.object(speedtest.platform, 'machine', return_value='arm64'), \
+                 patch.object(speedtest, 'validate_audio', return_value='fixture'), \
+                 patch.object(speedtest, 'verify_assets', return_value={}), \
+                 patch.object(speedtest, 'HELPER', helper), \
+                 patch.object(speedtest, 'WORK', cache), \
+                 patch.object(speedtest, 'RESULTS', results), \
+                 patch.object(speedtest, 'PACKAGES', ()), \
+                 patch.object(speedtest.importlib.metadata, 'distributions', return_value=[]), \
+                 patch.object(speedtest, 'host_info', return_value=dict(chip='test', memory_bytes=1, macos='15')), \
+                 patch.object(speedtest, 'source_info', return_value={}), \
+                 patch.object(speedtest, 'capture', return_value='ffmpeg test'), \
+                 patch.object(speedtest, 'run_worker', side_effect=failed_worker):
+                self.assertEqual(speedtest.run(args, dict(duration_seconds=1)), 1)
+            shutil.rmtree(cache)
+            output, = results.iterdir()
+            report = json.loads((output / 'report.json').read_text())
+            self.assertEqual(len(report['runs']), 3)
+            self.assertTrue((output / 'report.md').is_file())
+            self.assertEqual(len(list(output.glob('*/request.json'))), 3)
+
     def test_bundled_reference_is_exact_original_fixture(self):
         manifest = json.loads(speedtest.MANIFEST.read_text())
         self.assertEqual(speedtest.sha256(speedtest.REFERENCE_AUDIO), manifest['audio_file_sha256'])

@@ -41,6 +41,10 @@ Keep its Application Support data until migration has succeeded.
 The setup below is for building from source. See the
 [release build instructions](scripts/release/README.md) for packaging and signing.
 
+The repository's `.cache/` is disposable. Keep local release records, diagnostics
+and measured benchmark results in ignored `local-artifacts/`; see
+[local storage and cache recovery](docs/local-storage.md).
+
 ## Setup
 
 The Swift app targets macOS 14+. Building the included WhisperKit helper requires

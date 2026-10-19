@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 MANIFEST = ROOT / "benchmarks/turbo-en.json"
 WORK = ROOT / ".cache/speedtest"
+RESULTS = ROOT / "local-artifacts/speedtest"
 HELPER = ROOT / ".cache/whisperkit-build/release/BleepWhisperKit"
 REFERENCE_AUDIO = ROOT / "benchmarks/fixtures/turbo-en.flac"
 PACKAGES = ("faster-whisper", "ctranslate2", "mlx-whisper", "mlx", "mlx-metal", "onnxruntime", "numpy", "huggingface-hub", "av")
@@ -239,7 +240,7 @@ def run(args, manifest):
     wheel_tags = {name: [line.removeprefix("Tag: ") for line in
                         (importlib.metadata.distribution(name).read_text("WHEEL") or "").splitlines()
                         if line.startswith("Tag: ")] for name in PACKAGES}
-    output = args.output.resolve() if args.output else WORK / ("run-" + datetime.now().strftime("%Y%m%d-%H%M%S"))
+    output = args.output.resolve() if args.output else RESULTS / ("run-" + datetime.now().strftime("%Y%m%d-%H%M%S"))
     output.mkdir(parents=True, exist_ok=False)
     report = {"schema": 1, "fixture": manifest, "audio_file_sha256": audio_hash,
               "timestamp_utc": datetime.now(timezone.utc).isoformat(), "host": host_info(), "packages": versions,

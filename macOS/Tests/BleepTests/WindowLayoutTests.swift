@@ -17,7 +17,7 @@ final class WindowLayoutTests: XCTestCase {
         let model = AppModel(defaults: defaults)
         let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
             .deletingLastPathComponent().deletingLastPathComponent()
-        let folder = root.appendingPathComponent(".cache/macos-previews")
+        let folder = root.appendingPathComponent("local-artifacts/macos-previews/current")
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         for size in [NSSize(width: 880, height: 690), NSSize(width: 1120, height: 780)] {
             var dropFrame = CGRect.zero

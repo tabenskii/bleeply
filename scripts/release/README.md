@@ -1,5 +1,10 @@
 # macOS release
 
+`.cache/` is disposable; repeat the prerequisite and build steps after clearing
+it. Keep signing/submission responses, release logs and manual verification
+evidence in ignored `local-artifacts/release-VERSION/`. See
+[local storage and recovery](../../docs/local-storage.md).
+
 ## TestFlight preparation
 
 The notarized DMG cannot be uploaded directly to TestFlight. Create the macOS app

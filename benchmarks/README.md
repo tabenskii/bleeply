@@ -47,7 +47,8 @@ The script prevents idle system sleep while measuring and opens a new folder
 under **Desktop → bleeply Speed Test** when finished. Send **`report.json` and
 `report.md`** from that folder. `status.txt` distinguishes success, incomplete
 runs and setup failures; `setup.log` is local troubleshooting output and may
-contain local paths. Raw worker logs and transcripts stay in the ignored cache.
+contain local paths. Raw worker logs and transcripts stay in the report
+folder’s `raw/` subfolder.
 No recordings or results are uploaded. Another launch reuses installed tools and
 models and creates a new report folder. Concurrent launchers are rejected.
 
@@ -88,8 +89,8 @@ Macs where pip would otherwise choose a different binary. Reports record wheel
 tags as well as version numbers; compare matching binaries across machines.
 
 The default audio is `benchmarks/fixtures/turbo-en.flac`. Each invocation of
-`make speedtest` creates a new `.cache/speedtest/run-*` folder. There is one initial
-run plus three measured runs per pipeline, a 15 s idle gap and a one-hour limit
+`make speedtest` creates a new `local-artifacts/speedtest/run-*` folder. There is
+one initial run plus three measured runs per pipeline, a 15 s idle gap and a one-hour limit
 per run. The launcher uses the same settings. On an M1 CPU the complete test may
 take a while.
 
