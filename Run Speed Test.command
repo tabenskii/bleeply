@@ -3,7 +3,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPOSITORY_URL="https://github.com/IceRedline/bleeply.git"
+REPOSITORY_URL="https://github.com/tabenskii/bleeply.git"
 
 step() {
     PHASE="$*"

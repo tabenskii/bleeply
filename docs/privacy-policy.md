@@ -26,10 +26,10 @@ You choose which media the app can access and where exports are saved. Turn off 
 
 ## Support and TestFlight feedback
 
-Support is available through [GitHub Issues](https://github.com/IceRedline/bleeply/issues). GitHub issues are public: do not attach private recordings, transcripts or personal information. If you choose to send feedback, the developer receives the information you submit, and GitHub processes it under [GitHub's privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+Support is available through [GitHub Issues](https://github.com/tabenskii/bleeply/issues). GitHub issues are public: do not attach private recordings, transcripts or personal information. If you choose to send feedback, the developer receives the information you submit, and GitHub processes it under [GitHub's privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 Apple may provide TestFlight feedback and crash information according to your Apple settings and [Apple's TestFlight privacy information](https://www.apple.com/legal/privacy/data/en/test-flight/). These services are separate from the app's local media processing.
 
 ## Contact and changes
 
-For questions about this policy, contact Artem Tabenskii through [the project's support page](https://github.com/IceRedline/bleeply/issues). Updates to this policy will appear with a new effective date in the app and repository.
+For questions about this policy, contact Artem Tabenskii through [the project's support page](https://github.com/tabenskii/bleeply/issues). Updates to this policy will appear with a new effective date in the app and repository.

@@ -1,6 +1,6 @@
 # bleeply Support
 
-Get help from Artem Tabenskii through [GitHub Issues](https://github.com/IceRedline/bleeply/issues). A GitHub account is needed to open an issue. Reports are public; never attach private recordings, transcripts or personal information.
+Get help from Artem Tabenskii through [GitHub Issues](https://github.com/tabenskii/bleeply/issues). A GitHub account is needed to open an issue. Reports are public; never attach private recordings, transcripts or personal information.
 
 ## Reporting a problem
 

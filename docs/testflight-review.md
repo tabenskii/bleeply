@@ -14,8 +14,8 @@ not a usable App Store Connect Privacy Policy URL.
 
 | Field | Value |
 | --- | --- |
-| Privacy Policy URL, after publication | https://github.com/IceRedline/bleeply/blob/main/docs/privacy-policy.md |
-| Support URL | https://github.com/IceRedline/bleeply/issues |
+| Privacy Policy URL, after publication | https://github.com/tabenskii/bleeply/blob/main/docs/privacy-policy.md |
+| Support URL | https://github.com/tabenskii/bleeply/issues |
 | Copyright | 2026 Artem Tabenskii |
 | App category | Video |
 | Login required | No |
