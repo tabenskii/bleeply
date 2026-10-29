@@ -32,13 +32,22 @@ icon declaration, missing ICNS fallback, or missing 1024×1024 AppIcon rendition
 The integration test compiles the real assets, checks the accent and header logo
 remain present, and confirms that a theme-only replacement is rejected.
 
-## Acceptance
+## Validation and release outcome
 
 Local compilation and upload-metadata extraction establish that the corrected
-bundle declares and contains a primary icon. Final confirmation requires a new
-uploaded build to finish processing and App Store Connect to display the actual
-icon. Existing uploaded binaries cannot be changed. Publishing or submitting a
-build for review is a separate operation.
+bundle declares and contains a primary icon. Build 23 subsequently displayed the
+actual turquoise icon in App Store Connect build details, even under a URL named
+`Placeholder.mill`; the URL name alone is not evidence of a placeholder.
+
+Version 0.1.10 (24), which includes this packaging change, passed App Review and
+was released on October 24, 2026. The developer confirmed that the icon appears
+in the public App Store and the installed app, while the App Store Connect app
+listing still shows a placeholder. The remaining dashboard issue does not
+establish a defective release icon. Its server-side cause remains unproven.
+
+For future releases, check the rendered icon after processing rather than the
+asset URL name. Existing uploaded binaries cannot be changed. Publishing or
+submitting a build for review is a separate operation.
 
 Apple's supported workflow is documented in
 [Add an app icon](https://developer.apple.com/help/app-store-connect/manage-app-information/add-an-app-icon/).
