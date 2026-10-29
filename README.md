@@ -9,13 +9,42 @@ processing run locally; your recordings stay on your Mac.
 
 [Privacy Policy](docs/privacy-policy.md) · [Support](docs/support.md) · [Open Source Licenses](docs/third-party.md)
 
-**Contents:** [Download](#download-for-macos) · [Setup](#setup) · [App workflow](#app-workflow) · [Recognition](#recognition) · [Turbo benchmark](#turbo-benchmark) · [Exports](#exports) · [Architecture](#architecture) · [CLI](#cli) · [Checks](#checks) · [Limitations](#limitations)
+<img width="2400" height="1738" alt="Снимок экрана — 2026-10-21 в 21 10 24-Photoroom" src="https://github.com/user-attachments/assets/ca21a33f-81c3-4fbf-9f54-51274242f973" />
+
+<img width="2400" height="1738" alt="Снимок экрана — 2026-10-21 в 21 10 09-Photoroom" src="https://github.com/user-attachments/assets/a0bdfc40-c0dc-47dd-9117-ae27d57835ec" />
+
+
+**Contents:** 
+
+[Download](#download-for-macos)
+
+[Setup](#setup)
+
+[App workflow](#app-workflow)
+
+[Recognition](#recognition)
+
+[Turbo benchmark](#turbo-benchmark)
+
+[Exports](#exports)
+
+[Architecture](#architecture)
+
+[CLI](#cli)
+
+[Checks](#checks)
+
+[Limitations](#limitations)
 
 ## Download for macOS
 
 **Requires an Apple Silicon Mac running macOS 15.0 or later.**
 
-1. [Download bleeply 0.1.9 (build 20)](https://github.com/IceRedline/bleeply/releases/download/v0.1.9/bleeply-0.1.9-arm64.dmg).
+[Download bleeply on the Mac App Store](https://apps.apple.com/us/app/bleeply/id6821618360?l=ru&mt=12)
+
+Or install from GitHub Releases:
+
+1. [Download latest release](https://github.com/tabenskii/bleeply/releases) by selecting the `.dmg` file under **Assets**.
 2. Open the DMG and drag **bleeply** to **Applications**.
 3. Open **bleeply** from Applications and choose a video or audio file.
 4. If prompted, allow the selected speech model to download. Once it is downloaded, recognition works offline.
@@ -25,7 +54,7 @@ the recognition engines are included. Model downloads can be several GB;
 Settings shows an estimate for the selected model. Recordings are processed on
 your Mac. An Intel installer is not available.
 
-[Release notes and checksums](https://github.com/IceRedline/bleeply/releases/tag/v0.1.9)
+[Release notes and checksums](https://github.com/tabenskii/bleeply/releases)
 · [macOS user guide](macOS/README.md)
 
 ### Updating an existing installation
@@ -40,6 +69,10 @@ Keep its Application Support data until migration has succeeded.
 
 The setup below is for building from source. See the
 [release build instructions](scripts/release/README.md) for packaging and signing.
+
+The repository's `.cache/` is disposable. Keep local release records, diagnostics
+and measured benchmark results in ignored `local-artifacts/`; see
+[local storage and cache recovery](docs/local-storage.md).
 
 ## Setup
 
@@ -79,7 +112,7 @@ The subtitle shows the selected model and language. You can override it in Setti
 change; relaunching or selecting the same language keeps your manual choice. GigaAM
 is the Russian preset selected on a language change, based on the local trial,
 not a proven accuracy winner. With no saved preferences, the app starts in
-Russian with CPU / Whisper Large v3.
+English with CPU / Whisper Large v3 Turbo.
 Settings hides GigaAM for English. Downloads still
 require **Allow first-time model download**. English detection uses an experimental
 word list (`profanity.en.txt`); review contextual false positives and missed words.
@@ -135,8 +168,8 @@ All engines still require a separate model download. For source builds, install
 the additional recognition dependencies described below.
 
 In **Settings → Recognition**, the **Model · testing** picker offers Whisper
-Large v3 (the default) and Large v3 Turbo for CPU and Apple GPU. WhisperKit uses
-Large v3 Turbo through Core ML. Engine and model changes apply to the next file;
+Large v3 and Large v3 Turbo (the first-launch default) for CPU and Apple GPU.
+WhisperKit uses Large v3 Turbo through Core ML. Engine and model changes apply to the next file;
 each configuration has its own recognition cache.
 
 On Apple Silicon, both **CPU** and **Apple GPU · MLX / MPS** also offer experimental **Parakeet v3**,
@@ -179,16 +212,18 @@ per pipeline. Smaller is faster; transcript caches are bypassed.
 | Mac | Memory | CPU: faster-whisper int8 | GPU: MLX float16 | CPU + Neural Engine: WhisperKit |
 | --- | ---: | ---: | ---: | ---: |
 | M1 Air | 8 GiB | 267 s | 157 s | 74 s |
-| M3 | — | Not measured | Not measured | Not measured |
+| M3 | 8 GiB | 206 s | 111 s | 50 s |
 | M3 Pro | 36 GiB | 170 s | 41 s | 51 s |
 
-Measured on an M3 Pro with 12 CPU / 18 GPU cores, macOS 26.6.2, battery power,
-and Low Power Mode off. These are application pipelines with different runtimes,
+M3 measurements use 8 CPU / 10 GPU cores; M3 Pro uses 12 CPU / 18 GPU cores.
+Both ran macOS 26.6.2 on battery power with Low Power Mode off.
+These are application pipelines with different runtimes,
 precisions and decoding settings; compare the same column across Macs. Core ML
 may use CPU for some operations in the Neural Engine column.
 
 [Full results and setup instructions](benchmarks/README.md) ·
-[Individual measurements](benchmarks/results/m3-pro-36gb-2026-10-15.json)
+[M3 measurements](benchmarks/results/m3-8gb-2026-10-16.json) ·
+[M3 Pro measurements](benchmarks/results/m3-pro-36gb-2026-10-15.json)
 
 To measure another Mac, double-click [`Run Speed Test.command`](Run%20Speed%20Test.command)
 in the repository or an extracted source ZIP. It installs missing prerequisites,

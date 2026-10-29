@@ -13,6 +13,8 @@ dist/
 # Keep legacy local reports ignored during an upgrade as well.
 /тесты bleep.ly/
 .cache/
+# Persistent local evidence, release records, diagnostics and benchmark runs.
+/local-artifacts/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/

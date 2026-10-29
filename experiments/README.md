@@ -72,7 +72,7 @@ HF_HOME="$PWD/.cache/huggingface" HF_HUB_DISABLE_TELEMETRY=1 \
   .venv/bin/python -m censor.benchmark input.mov \
   --reference input.reviewed.transcript.json \
   --helper 'build/bleeply.app/Contents/Helpers/BleepWhisperKit' \
-  --output .cache/comparison-new --repeats 3
+  --output local-artifacts/comparison-new --repeats 3
 ```
 
 Папка вывода должна быть новой. Все модели заранее установлены; сетевые
@@ -123,7 +123,7 @@ analysis_seconds исключает только старт Python. Первый
 Полный первый запуск WhisperKit из `.app` занял 174.24s, включая подготовку
 Core ML. В таблице скорость только прогонов 2–3: при первом проходе CPU/MLX
 параллельно ещё завершалась сборка, поэтому его время не используем для сравнения.
-Все три прогона сохранились в `.cache/whisperkit-benchmark/final/report.json`.
+Все три прогона сохранились в `local-artifacts/whisperkit-benchmark/final/report.json`.
 
 CPU и WhisperKit пропустили проверенное вхождение около 11s. Ошибка начала
 первого ругательства у всех движков достигает примерно 0.55–0.57s, несмотря

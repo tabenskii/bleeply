@@ -2,14 +2,22 @@
 
 One full English **audio** reference, Whisper Large v3 Turbo, three application
 pipelines. Run `make speedtest` on each Mac and contribute the generated report.
-M1 and M3 results must be measured on those machines; they cannot be inferred
-from M3 Pro timings.
+Results must be measured on each machine; they cannot be inferred from another
+chip's timings.
 
 | Mac | Memory | CPU: faster-whisper int8 | GPU: MLX float16 | CPU + Neural Engine: WhisperKit |
 | --- | ---: | ---: | ---: | ---: |
-| M1 Air | 8 GiB | Not measured | Not measured | Not measured |
-| M3 | — | Not measured | Not measured | Not measured |
-| M3 Pro | 36 GiB | 170.37 s | 41.49 s | 51.24 s |
+| M1 Air | 8 GiB | 267 s | 157 s | 74 s |
+| M3 | 8 GiB | 206 s | 111 s | 50 s |
+| M3 Pro | 36 GiB | 170 s | 41 s | 51 s |
+
+M3 measurement: 8 CPU / 10 GPU cores, 8 GiB memory, macOS 26.6.2 (25G83), battery
+power, Low Power Mode off. [Readable report](results/m3-8gb-2026-10-16.md) ·
+[Full measurements and provenance](results/m3-8gb-2026-10-16.json).
+The three GPU repeats took 78.82–130.40 s; the median includes all three successful
+runs. Model file hashes, core inference package versions and wheel tags match
+the M3 Pro report. This run used a source archive, so its JSON records a source
+fingerprint with null Git fields.
 
 M3 Pro measurement: 12 CPU / 18 GPU cores, macOS 26.6.2 (25G83), battery
 power, Low Power Mode off. [Readable report](results/m3-pro-36gb-2026-10-15.md) ·
@@ -39,7 +47,8 @@ The script prevents idle system sleep while measuring and opens a new folder
 under **Desktop → bleeply Speed Test** when finished. Send **`report.json` and
 `report.md`** from that folder. `status.txt` distinguishes success, incomplete
 runs and setup failures; `setup.log` is local troubleshooting output and may
-contain local paths. Raw worker logs and transcripts stay in the ignored cache.
+contain local paths. Raw worker logs and transcripts stay in the report
+folder’s `raw/` subfolder.
 No recordings or results are uploaded. Another launch reuses installed tools and
 models and creates a new report folder. Concurrent launchers are rejected.
 
@@ -80,8 +89,8 @@ Macs where pip would otherwise choose a different binary. Reports record wheel
 tags as well as version numbers; compare matching binaries across machines.
 
 The default audio is `benchmarks/fixtures/turbo-en.flac`. Each invocation of
-`make speedtest` creates a new `.cache/speedtest/run-*` folder. There is one initial
-run plus three measured runs per pipeline, a 15 s idle gap and a one-hour limit
+`make speedtest` creates a new `local-artifacts/speedtest/run-*` folder. There is
+one initial run plus three measured runs per pipeline, a 15 s idle gap and a one-hour limit
 per run. The launcher uses the same settings. On an M1 CPU the complete test may
 take a while.
 

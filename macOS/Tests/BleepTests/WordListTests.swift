@@ -38,7 +38,7 @@ final class WordListTests: XCTestCase {
         defer { defaults.removePersistentDomain(forName: suite) }
         let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
             .deletingLastPathComponent().deletingLastPathComponent()
-        let folder = root.appendingPathComponent(".cache/macos-previews")
+        let folder = root.appendingPathComponent("local-artifacts/macos-previews/current")
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         for language in VideoLanguage.allCases {
             let host = NSHostingView(rootView: WordListEditor(root: root, defaults: defaults, language: language)

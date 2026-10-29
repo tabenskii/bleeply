@@ -61,6 +61,11 @@ run_logged() {
         self.assertLess(calls.index('verify-audio'), calls.index('speedtest-setup'))
         self.assertLess(calls.index('speedtest-setup'), calls.index('caffeinate'))
         self.assertFalse((Path(self.environment['HOME']) / 'Library/Caches/bleeply-speedtest/running.lock').exists())
+        # Standalone launchers keep their checkout under Library/Caches. Both
+        # source and dependency caches can disappear without losing raw results.
+        shutil.rmtree(self.source)
+        shutil.rmtree(Path(self.environment['HOME']) / 'Library/Caches')
+        self.assertTrue(json.loads((self.output / 'raw/report.json').read_text())['test_fixture'])
 
     @unittest.skipIf(os.geteuid() == 0, 'Launcher intentionally refuses root')
     def test_setup_failure_never_starts_measurement(self):
@@ -85,6 +90,8 @@ run_logged() {
         self.assertIn('saving reports', (self.output / 'status.txt').read_text())
         self.assertIn('Original reports remain in:', result.stderr)
         self.assertNotIn('Finished. Send these two files', result.stdout)
+        shutil.rmtree(self.source)
+        self.assertTrue((self.output / 'raw/report.json').is_file())
 
     @unittest.skipIf(os.geteuid() == 0, 'Launcher intentionally refuses root')
     def test_prepare_only_and_existing_output(self):

@@ -193,7 +193,7 @@ main() {
     run_logged make -C "$ROOT" speedtest-setup
     if [[ "$prepare_only" == 1 ]]; then PHASE=prepared; return 0; fi
     step 'Running 12 offline measurements: CPU, GPU, CPU + Neural Engine'
-    RAW_OUTPUT="$ROOT/.cache/speedtest/launcher-$stamp"
+    RAW_OUTPUT="$OUTPUT/raw"
     run_logged caffeinate -i "$ROOT/.cache/speedtest/venv/bin/python" "$ROOT/scripts/speedtest.py" run --output "$RAW_OUTPUT"
     [[ -s "$RAW_OUTPUT/report.json" && -s "$RAW_OUTPUT/report.md" ]] || { printf 'The worker did not produce reports.\n' >&2; return 1; }
     PHASE=completed

@@ -70,7 +70,7 @@ The source changes passed 170 Python tests and 66 Swift tests. The new PyAV whee
 was checked for LGPL-only FFmpeg configuration, audio decoding and resampling.
 The bundle compatibility audit inspected 572 native files and confirmed macOS
 15.0 as the minimum. Preparation records source revisions and wheel checksums in
-`preparation.json`. Local logs are under `.cache/testflight-prep`.
+`preparation.json`. Local logs are under `local-artifacts/testflight-prep`.
 
 Package signature and installer permissions are checked by the signing script.
 A separate diagnostic copy exercises the signed runtime payload in App Sandbox;
