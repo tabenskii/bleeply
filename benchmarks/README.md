@@ -7,9 +7,9 @@ chip's timings.
 
 | Mac | Memory | CPU: faster-whisper int8 | GPU: MLX float16 | CPU + Neural Engine: WhisperKit |
 | --- | ---: | ---: | ---: | ---: |
-| M1 Air | 8 GiB | Not measured | Not measured | Not measured |
-| M3 | 8 GiB | 206.46 s | 111.32 s | 50.06 s |
-| M3 Pro | 36 GiB | 170.37 s | 41.49 s | 51.24 s |
+| M1 Air | 8 GiB | 267 s | 157 s | 74 s |
+| M3 | 8 GiB | 206 s | 111 s | 50 s |
+| M3 Pro | 36 GiB | 170 s | 41 s | 51 s |
 
 M3 measurement: 8 CPU / 10 GPU cores, 8 GiB memory, macOS 26.6.2 (25G83), battery
 power, Low Power Mode off. [Readable report](results/m3-8gb-2026-10-16.md) ·
